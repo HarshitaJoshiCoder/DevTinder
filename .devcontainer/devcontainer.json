@@ -1,0 +1,34 @@
+{
+  "name": "DevTinder Dev Environment",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/devtinder",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "node",
+
+  "forwardPorts": [5000, 5173, 27017, 6379],
+  "portsAttributes": {
+    "5000": { "label": "Backend API", "onAutoForward": "notify" },
+    "5173": { "label": "Frontend (Vite dev server)", "onAutoForward": "openBrowser" },
+    "27017": { "label": "MongoDB" },
+    "6379": { "label": "Redis" }
+  },
+
+  "postCreateCommand": "cd backend && npm install && cd ../frontend && npm install",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bradlc.vscode-tailwindcss",
+        "mongodb.mongodb-vscode",
+        "esbenp.prettier-vscode",
+        "mikestead.dotenv",
+        "dsznajder.es7-react-js-snippets",
+        "rangav.vscode-thunder-client"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}

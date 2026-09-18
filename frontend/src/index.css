@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-base-950 text-ink-100 font-body antialiased;
+  background-image: radial-gradient(circle at 20% 0%, rgba(34, 211, 238, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 100%, rgba(167, 139, 250, 0.05), transparent 40%);
+}
+
+/* Focus visibility kept intentionally strong - a dark UI hides default outlines easily */
+:focus-visible {
+  outline: 2px solid theme('colors.accent.cyan');
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

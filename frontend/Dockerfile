@@ -1,0 +1,23 @@
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+# Vite inlines VITE_* variables at build time, so they must arrive as build
+# args here rather than as container runtime environment variables.
+ARG VITE_API_URL
+ARG VITE_SOCKET_URL
+ARG VITE_GOOGLE_CLIENT_ID
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_SOCKET_URL=$VITE_SOCKET_URL
+ENV VITE_GOOGLE_CLIENT_ID=$VITE_GOOGLE_CLIENT_ID
+
+RUN npm run build
+
+FROM node:20-alpine
+WORKDIR /app
+RUN npm install -g serve
+COPY --from=build /app/dist ./dist
+EXPOSE 4173
+CMD ["serve", "-s", "dist", "-l", "4173"]
