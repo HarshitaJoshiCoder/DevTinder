@@ -51,7 +51,7 @@ export default function Profile() {
   return (
     <div>
       <Navbar />
-      <main className="mx-auto max-w-lg px-4 py-10">
+      <main className="mx-auto max-w-lg px-4 py-6 sm:py-10">
         <h1 className="font-display text-2xl font-bold text-ink-100">Your profile</h1>
         <p className="mt-1 font-mono text-sm text-ink-400">// this is what other developers will see</p>
 

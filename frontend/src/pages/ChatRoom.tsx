@@ -66,9 +66,9 @@ export default function ChatRoom() {
   }
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-dvh flex-col">
       <Navbar />
-      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col overflow-hidden px-4 py-6">
+      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col overflow-hidden px-3 py-4 sm:px-4 sm:py-6">
         <div className="flex-1 space-y-3 overflow-y-auto rounded-xl border border-base-700 bg-base-900 p-4">
           {messages.map((m) => {
             const mine = m.sender === user?._id;

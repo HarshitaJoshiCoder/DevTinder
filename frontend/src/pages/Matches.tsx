@@ -36,7 +36,7 @@ export default function Matches() {
   return (
     <div>
       <Navbar />
-      <main className="mx-auto max-w-2xl px-4 py-10">
+      <main className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
         <h1 className="font-display text-2xl font-bold text-ink-100">Matches</h1>
         <p className="mt-1 font-mono text-sm text-ink-400">// everyone you and someone else both connected with</p>
 

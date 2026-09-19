@@ -39,7 +39,7 @@ export default function MatchModal({ match, currentUserId, onClose, onMessage }:
           </p>
         </div>
 
-        <div className="flex gap-3 border-t border-base-700 p-4">
+        <div className="flex flex-col gap-3 border-t border-base-700 p-4 sm:flex-row">
           <button
             onClick={onClose}
             className="flex-1 rounded-lg border border-base-700 py-2.5 font-medium text-ink-400 hover:text-ink-100"

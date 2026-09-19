@@ -65,13 +65,13 @@ export default function SwipeCard({ profile, onLike, onPass }: SwipeCardProps) {
         <div className="mt-6 flex gap-3">
           <button
             onClick={onPass}
-            className="flex-1 rounded-lg border border-base-700 py-2.5 font-medium text-pass-rose transition-colors hover:bg-pass-rose/10"
+            className="flex-1 rounded-lg border border-base-700 py-3 font-medium text-pass-rose transition-colors hover:bg-pass-rose/10"
           >
             Pass
           </button>
           <button
             onClick={onLike}
-            className="flex-1 rounded-lg bg-accent-cyan py-2.5 font-medium text-base-950 transition-opacity hover:opacity-90"
+            className="flex-1 rounded-lg bg-accent-cyan py-3 font-medium text-base-950 transition-opacity hover:opacity-90"
           >
             Connect
           </button>

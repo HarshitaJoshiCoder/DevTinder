@@ -33,7 +33,7 @@ export default function Register() {
       theme: 'filled_black',
       size: 'large',
       shape: 'pill',
-      width: 320,
+      width: Math.min(googleBtnRef.current.offsetWidth, 320),
     });
   }, [login, navigate]);
 
