@@ -10,15 +10,22 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const googleBtnWrapperRef = useRef<HTMLDivElement>(null);
   const googleBtnRef = useRef<HTMLDivElement>(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    if (!clientId || !window.google || !googleBtnRef.current) return;
+    if (!clientId || !window.google || !googleBtnRef.current || !googleBtnWrapperRef.current) return;
 
-    window.google.accounts.id.initialize({
+    // Narrowed once here; captured as non-null so the closures below (which
+    // TypeScript can't otherwise prove still see a non-null value) type-check.
+    const google = window.google;
+    const container = googleBtnRef.current;
+    const wrapper = googleBtnWrapperRef.current;
+
+    google.accounts.id.initialize({
       client_id: clientId,
       callback: async (response) => {
         try {
@@ -30,12 +37,37 @@ export default function Register() {
         }
       },
     });
-    window.google.accounts.id.renderButton(googleBtnRef.current, {
+
+    // Render once at a fixed "natural" width, then resize it purely with a
+    // CSS transform below. Re-rendering on every resize (the previous
+    // approach) reloads a cross-origin iframe each time, which is visibly
+    // laggy — scaling with CSS is instant since it never touches Google's SDK.
+    const NATURAL_WIDTH = 320;
+    google.accounts.id.renderButton(container, {
       theme: 'filled_black',
       size: 'large',
       shape: 'pill',
-      width: Math.min(googleBtnRef.current.offsetWidth, 320),
+      width: NATURAL_WIDTH,
     });
+
+    const applyScale = () => {
+      const button = container.firstElementChild as HTMLElement | null;
+      const naturalHeight = button?.offsetHeight || container.offsetHeight || 40;
+      const availableWidth = wrapper.offsetWidth;
+      const scale = Math.min(availableWidth / NATURAL_WIDTH, 1);
+      container.style.transform = `scale(${scale})`;
+      container.style.left = `${(availableWidth - NATURAL_WIDTH * scale) / 2}px`;
+      wrapper.style.height = `${naturalHeight * scale}px`;
+    };
+
+    applyScale();
+
+    // Observe the wrapper's parent, not the wrapper itself — applyScale sets
+    // the wrapper's own height, and watching it would feed back into itself.
+    const resizeObserver = new ResizeObserver(applyScale);
+    if (wrapper.parentElement) resizeObserver.observe(wrapper.parentElement);
+
+    return () => resizeObserver.disconnect();
   }, [login, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -146,7 +178,9 @@ export default function Register() {
             <span className="h-px flex-1 bg-base-700" />
           </div>
 
-          <div ref={googleBtnRef} className="flex justify-center" />
+          <div ref={googleBtnWrapperRef} className="relative min-h-[40px] w-full overflow-hidden">
+            <div ref={googleBtnRef} className="absolute top-0" style={{ transformOrigin: 'top left' }} />
+          </div>
         </form>
 
         <p className="mt-5 text-center text-sm text-ink-400">
