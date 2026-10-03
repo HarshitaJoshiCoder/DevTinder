@@ -1,7 +1,15 @@
+const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
+const { sendMail } = require('../utils/mailer');
+
+const RESET_TOKEN_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+function hashToken(token) {
+  return crypto.createHash('sha256').update(token).digest('hex');
+}
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -105,4 +113,74 @@ async function googleLogin(req, res, next) {
   }
 }
 
-module.exports = { register, login, googleLogin };
+async function forgotPassword(req, res, next) {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ message: 'email is required.' });
+    }
+
+    // Always respond with the same generic message, whether or not the
+    // account exists, so this endpoint can't be used to enumerate emails.
+    const genericResponse = { message: 'If an account exists for that email, a reset link has been sent.' };
+
+    const user = await User.findOne({ email: email.toLowerCase() }).select('+passwordHash');
+    if (!user || !user.passwordHash) {
+      // Either no account, or a Google-only account with no password to reset.
+      return res.json(genericResponse);
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordTokenHash = hashToken(token);
+    user.resetPasswordExpires = new Date(Date.now() + RESET_TOKEN_TTL_MS);
+    await user.save();
+
+    const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+    const resetUrl = `${clientOrigin}/reset-password?token=${token}&email=${encodeURIComponent(user.email)}`;
+
+    await sendMail({
+      to: user.email,
+      subject: 'Reset your DevTinder password',
+      text: `Reset your password: ${resetUrl}\n\nThis link expires in 1 hour. If you didn't request this, you can ignore this email.`,
+      html: `<p>Someone requested a password reset for this account.</p><p><a href="${resetUrl}">Click here to reset your password</a> (expires in 1 hour).</p><p>If you didn't request this, you can ignore this email.</p>`,
+    });
+
+    return res.json(genericResponse);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function resetPassword(req, res, next) {
+  try {
+    const { email, token, password } = req.body;
+    if (!email || !token || !password) {
+      return res.status(400).json({ message: 'email, token, and password are required.' });
+    }
+    if (password.length < 8) {
+      return res.status(400).json({ message: 'Password must be at least 8 characters.' });
+    }
+
+    const user = await User.findOne({
+      email: email.toLowerCase(),
+      resetPasswordTokenHash: hashToken(token),
+      resetPasswordExpires: { $gt: new Date() },
+    }).select('+resetPasswordTokenHash +resetPasswordExpires');
+
+    if (!user) {
+      return res.status(400).json({ message: 'That reset link is invalid or has expired.' });
+    }
+
+    user.passwordHash = await bcrypt.hash(password, 10);
+    user.resetPasswordTokenHash = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    const authToken = generateToken(user._id);
+    return res.json({ token: authToken, user: publicUser(user) });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { register, login, googleLogin, forgotPassword, resetPassword };

@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema(
     // Present only for accounts created/linked via Google Sign-In.
     googleId: { type: String, unique: true, sparse: true },
 
+    // Set while a password-reset request is pending; cleared once used or expired.
+    resetPasswordTokenHash: { type: String, select: false },
+    resetPasswordExpires: { type: Date, select: false },
+
     photoUrl: { type: String, default: '' },
     bio: { type: String, default: '', maxlength: 300 },
     role: { type: String, default: '', maxlength: 60 }, // e.g. "Frontend Engineer"

@@ -15,3 +15,13 @@ export async function googleLoginRequest(idToken: string) {
   const { data } = await axiosClient.post<AuthResponse>('/auth/google', { idToken });
   return data;
 }
+
+export async function forgotPasswordRequest(email: string) {
+  const { data } = await axiosClient.post<{ message: string }>('/auth/forgot-password', { email });
+  return data;
+}
+
+export async function resetPasswordRequest(email: string, token: string, password: string) {
+  const { data } = await axiosClient.post<AuthResponse>('/auth/reset-password', { email, token, password });
+  return data;
+}
