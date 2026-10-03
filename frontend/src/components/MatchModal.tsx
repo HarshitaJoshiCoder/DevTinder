@@ -34,7 +34,7 @@ export default function MatchModal({ match, currentUserId, onClose, onMessage }:
           </div>
 
           <p className="text-center text-base text-ink-100">
-            <span className="text-accent-cyan">It's a match!</span> You and{' '}
+            <span className="text-accent-coral">It's a match!</span> You and{' '}
             <span className="font-semibold">{other.name}</span> are now connected.
           </p>
         </div>
@@ -48,7 +48,7 @@ export default function MatchModal({ match, currentUserId, onClose, onMessage }:
           </button>
           <button
             onClick={onMessage}
-            className="flex-1 rounded-lg bg-accent-cyan py-2.5 font-medium text-base-950 hover:opacity-90"
+            className="flex-1 rounded-lg bg-accent-coral py-2.5 font-medium text-base-950 hover:opacity-90"
           >
             Send a message
           </button>

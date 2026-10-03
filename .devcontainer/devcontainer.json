@@ -20,6 +20,7 @@
     "vscode": {
       "extensions": [
         "bradlc.vscode-tailwindcss",
+        "anthropic.claude-code",
         "mongodb.mongodb-vscode",
         "esbenp.prettier-vscode",
         "mikestead.dotenv",

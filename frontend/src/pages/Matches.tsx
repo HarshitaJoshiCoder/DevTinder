@@ -55,7 +55,7 @@ export default function Matches() {
             <li key={m._id}>
               <button
                 onClick={() => navigate(`/chat/${m._id}`)}
-                className="flex w-full items-center gap-4 rounded-xl border border-base-700 bg-base-900 p-4 text-left transition-colors hover:border-accent-cyan/40"
+                className="flex w-full items-center gap-4 rounded-xl border border-base-700 bg-base-900 p-4 text-left transition-colors hover:border-accent-coral/40"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-base-800 font-display font-bold text-ink-400">
                   {m.otherUser.photoUrl ? (

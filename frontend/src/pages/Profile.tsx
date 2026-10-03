@@ -61,7 +61,7 @@ export default function Profile() {
             <input
               value={form.name || ''}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-cyan"
+              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-coral"
             />
           </div>
 
@@ -71,7 +71,7 @@ export default function Profile() {
               placeholder="e.g. Full Stack Engineer"
               value={form.role || ''}
               onChange={(e) => setForm((f) => ({ ...f, role: e.target.value }))}
-              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-cyan"
+              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-coral"
             />
           </div>
 
@@ -82,7 +82,7 @@ export default function Profile() {
               rows={3}
               value={form.bio || ''}
               onChange={(e) => setForm((f) => ({ ...f, bio: e.target.value }))}
-              className="w-full resize-none rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-cyan"
+              className="w-full resize-none rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-coral"
             />
           </div>
 
@@ -92,7 +92,7 @@ export default function Profile() {
               placeholder="React, Node.js, MongoDB"
               value={skillsInput}
               onChange={(e) => setSkillsInput(e.target.value)}
-              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-cyan"
+              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-coral"
             />
           </div>
 
@@ -101,7 +101,7 @@ export default function Profile() {
             <input
               value={form.location || ''}
               onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))}
-              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-cyan"
+              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-coral"
             />
           </div>
 
@@ -111,14 +111,14 @@ export default function Profile() {
               placeholder="https://…"
               value={form.photoUrl || ''}
               onChange={(e) => setForm((f) => ({ ...f, photoUrl: e.target.value }))}
-              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-cyan"
+              className="w-full rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-coral"
             />
           </div>
 
           <button
             type="submit"
             disabled={isSaving}
-            className="w-full rounded-md bg-accent-cyan py-2.5 font-medium text-base-950 transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="w-full rounded-md bg-accent-coral py-2.5 font-medium text-base-950 transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {isSaving ? 'Saving…' : 'Save changes'}
           </button>

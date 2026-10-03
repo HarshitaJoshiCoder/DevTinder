@@ -5,9 +5,9 @@ services:
     image: node:20-bookworm
     volumes:
       - ..:/workspaces/devtinder:cached
+      - node_home:/home/node
     command: sleep infinity
     environment:
-      MONGO_URI: mongodb://mongo:27017/devtinder
       REDIS_URL: redis://redis:6379
     depends_on:
       - mongo
@@ -29,3 +29,4 @@ services:
 
 volumes:
   mongo_data:
+  node_home:

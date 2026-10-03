@@ -54,21 +54,24 @@ export default function Discover() {
   const current = profiles[0];
 
   return (
-    <div>
+    <div className="relative min-h-screen overflow-hidden bg-base-950">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full bg-accent-yellow sm:h-80 sm:w-80"
+      />
       <Navbar />
-      <main className="mx-auto flex max-w-5xl flex-col items-center px-4 py-6 sm:py-10">
+      <main className="relative mx-auto flex max-w-5xl flex-col items-center px-4 py-6 sm:py-10">
         <div className="mb-6 text-center">
-          <h1 className="font-display text-2xl font-bold text-ink-100">Discover</h1>
-          <p className="mt-1 font-mono text-sm text-ink-400">// developers who might be worth building with</p>
+          <h1 className="font-display text-3xl font-bold text-white">Discover</h1>
+          <p className="mt-1 font-body text-sm text-ink-400">Developers who might be worth building with</p>
         </div>
 
-        {isLoading && <p className="mt-10 font-mono text-sm text-ink-400">Loading feed…</p>}
+        {isLoading && <p className="mt-10 font-body text-sm text-ink-400">Loading feed…</p>}
 
         {!isLoading && !current && (
-          <div className="mt-10 max-w-sm rounded-xl border border-base-700 bg-base-900 p-8 text-center">
-            <p className="font-mono text-sm text-ink-400">$ feed --empty</p>
-            <p className="mt-3 text-ink-100">You're out of profiles for now.</p>
-            <p className="mt-1 text-sm text-ink-400">Check back later, or update your skills to widen your matches.</p>
+          <div className="mt-10 max-w-sm rounded-3xl bg-white p-8 text-center shadow-2xl shadow-black/40">
+            <p className="font-display text-lg font-bold text-ink-900">You're out of profiles for now</p>
+            <p className="mt-1 text-sm text-ink-600">Check back later, or update your skills to widen your matches.</p>
           </div>
         )}
 

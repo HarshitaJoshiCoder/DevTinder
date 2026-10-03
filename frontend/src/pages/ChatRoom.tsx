@@ -76,7 +76,7 @@ export default function ChatRoom() {
               <div key={m._id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
                 <div
                   className={`max-w-[75%] rounded-lg px-3 py-2 text-sm ${
-                    mine ? 'bg-accent-cyan text-base-950' : 'bg-base-800 text-ink-100'
+                    mine ? 'bg-accent-coral text-base-950' : 'bg-base-800 text-ink-100'
                   }`}
                 >
                   {m.content}
@@ -94,12 +94,12 @@ export default function ChatRoom() {
             onChange={(e) => handleChange(e.target.value)}
             placeholder={isJoined ? 'Type a message…' : 'Connecting…'}
             disabled={!isJoined}
-            className="flex-1 rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-cyan disabled:opacity-50"
+            className="flex-1 rounded-md border border-base-700 bg-base-950 px-3 py-2 text-ink-100 outline-none focus:border-accent-coral disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={!isJoined || !draft.trim()}
-            className="rounded-md bg-accent-cyan px-4 py-2 font-medium text-base-950 disabled:opacity-50"
+            className="rounded-md bg-accent-coral px-4 py-2 font-medium text-base-950 disabled:opacity-50"
           >
             Send
           </button>

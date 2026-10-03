@@ -16,7 +16,7 @@ body {
 
 /* Focus visibility kept intentionally strong - a dark UI hides default outlines easily */
 :focus-visible {
-  outline: 2px solid theme('colors.accent.cyan');
+  outline: 2px solid theme('colors.accent.coral');
   outline-offset: 2px;
 }
 

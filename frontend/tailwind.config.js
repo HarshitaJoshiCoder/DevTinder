@@ -5,31 +5,35 @@ export default {
     extend: {
       colors: {
         base: {
-          950: '#0A0F1E', // page background
-          900: '#101728', // card / panel surface
-          800: '#1A2338', // raised surface / hover
-          700: '#2A3550', // borders
+          950: '#14121F', // page background
+          900: '#1E1B2E', // card / panel surface
+          800: '#2A2640', // raised surface / hover
+          700: '#3D3856', // borders
         },
         accent: {
-          // "online / connect" - primary action
-          cyan: '#22D3EE',
+          // "connect" - primary action, the vibrant coral identity color
+          coral: '#FF4D6D',
+          // secondary accent - decorative highlights, tags, celebration moments
+          yellow: '#FFC145',
         },
         match: {
           // reserved for the match celebration moment only
-          violet: '#A78BFA',
+          gold: '#FFC145',
         },
         pass: {
-          rose: '#FB7185',
+          rose: '#F4527E',
         },
         ink: {
           100: '#E7ECF7',
           400: '#93A0BF',
+          // dark text tones for use on light/white surfaces (cards)
+          600: '#5B5A72',
+          900: '#1B1A2E',
         },
       },
       fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'],
-        body: ['"Inter"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        display: ['"Baloo 2"', 'sans-serif'],
+        body: ['"Manrope"', 'sans-serif'],
       },
       boxShadow: {
         card: '0 20px 60px -20px rgba(0,0,0,0.6)',
